@@ -1,0 +1,11 @@
+venv/
+__pycache__/
+*.pyc
+*.pkl
+*.joblib
+*.csv
+*.db
+logs/
+data/
+models/
+.ipynb_checkpoints
