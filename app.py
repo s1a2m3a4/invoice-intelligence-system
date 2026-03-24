@@ -485,9 +485,9 @@ else:
             is_flagged = bool(res_flag_df['Predicted_Flag'].iloc[0])
 
             if is_flagged:
-                st.error("⚠ Vendor is Flagged")
+                st.error("⚠️ High Risk Invoice")
             else:
-                st.success("✅ Vendor is Normal")
+                st.success("✅ Vendor is Normal-Approved for Auto Processing")
 
             if is_flagged:
                 st.markdown(
