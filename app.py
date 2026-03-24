@@ -382,8 +382,9 @@ st.sidebar.markdown("""
 
 
 selected_model = st.sidebar.radio(
-    "",
-    ["🚚 Freight Cost Prediction", "📋 Invoice Manual Approval Flag"]
+    "Selected Model",
+    ["🚚 Freight Cost Prediction", "📋 Invoice Manual Approval Flag"],
+    label_visibility="collapsed"
 )
 
 st.sidebar.markdown("---")
@@ -474,7 +475,19 @@ else:
         })
 
         res_flag_df = predict_invoice_flag(input_data)
-        is_flagged = bool(res_flag_df['Predicted_Flag'].iloc[0])
+        # is_flagged = bool(res_flag_df['Predicted_Flag'].iloc[0])
+        if isinstance(res_flag_df, str):
+            st.error(res_flag_df)
+        else:
+            is_flagged = bool(res_flag_df['Predicted_Flag'].iloc[0])
+
+        if is_flagged:
+            st.error("⚠ Vendor is Flagged")
+        else:
+            st.success("✅ Vendor is Normal")
+
+
+
 
         if is_flagged:
             st.markdown(
