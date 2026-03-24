@@ -474,40 +474,32 @@ else:
             "total_item_dollars": [item_dlrs]
         })
 
-        res_flag_df = predict_invoice_flag(input_data)
-        # is_flagged = bool(res_flag_df['Predicted_Flag'].iloc[0])
-        if isinstance(res_flag_df, str):
-            st.error(res_flag_df)
-        else:
-            is_flagged = bool(res_flag_df['Predicted_Flag'].iloc[0])
+res_flag_df = predict_invoice_flag(input_data)
 
-        if is_flagged:
-            st.error("⚠ Vendor is Flagged")
-        else:
-            st.success("✅ Vendor is Normal")
+is_flagged = False
 
+if isinstance(res_flag_df, str):
+    st.error(res_flag_df)
+else:
+    is_flagged = bool(res_flag_df['Predicted_Flag'].iloc[0])
 
+    if is_flagged:
+        st.error("⚠ Vendor is Flagged")
+    else:
+        st.success("✅ Vendor is Normal")
 
+    if is_flagged:
+        st.markdown(
+            '<p class="result-risk">⚠️ Invoice requires MANUAL APPROVAL</p>',
+            unsafe_allow_html=True
+        )
+    else:
+        st.markdown(
+            '<p class="result-safe">✅ Invoice is SAFE for Auto-Approval</p>',
+            unsafe_allow_html=True
+        )
 
-        if is_flagged:
-            st.markdown(
-                '<p class="result-risk">⚠️ Invoice requires MANUAL APPROVAL</p>',
-                unsafe_allow_html=True
-            )
-        else:
-            st.markdown(
-                '<p class="result-safe">✅ Invoice is SAFE for Auto-Approval</p>',
-                unsafe_allow_html=True
-            )
-
-        st.write("Detailed Features:", res_flag_df)
-
-
-
-
-
-
-
+    st.write("Detailed Features:", res_flag_df)
 
 
 
